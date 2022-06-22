@@ -10,8 +10,10 @@ export const actionCurrencieThunk = () => async (dispatch) => {
   try {
     const response = await fetch('https://economia.awesomeapi.com.br/json/all');
     const json = await response.json();
+    // if (json) {
     const todasMoedas = Object.keys(json).filter((elemento) => elemento !== 'USDT');
     dispatch(actionCurrencies(todasMoedas));
+    // }
   } catch (e) {
     console.log(e);
   }
