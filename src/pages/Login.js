@@ -29,7 +29,7 @@ class Login extends React.Component {
   fazerLogin = () => {
     const { email } = this.state;
     const { saveLogin, history } = this.props;
-    saveLogin(actionLogin(email));
+    saveLogin(email);
     history.push('/carteira');
   }
 
