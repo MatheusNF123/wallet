@@ -7,6 +7,14 @@ class Header extends React.Component {
   componentDidMount() {
     const { curr } = this.props;
     curr();
+    this.adicionaValor();
+  }
+
+  adicionaValor = () => {
+    const dez = 10;
+    const { lista } = this.props;
+    console.log(lista.length, 'minhaLista');
+    return dez;
   }
 
   render() {
@@ -15,7 +23,8 @@ class Header extends React.Component {
       <header>
         <div data-testid="email-field">{email}</div>
         <div data-testid="total-field">
-          {parseFloat(soma).toFixed(2)}
+          {/* {parseFloat(soma).toFixed(2)} */}
+          {this.adicionaValor()}
 
         </div>
 
@@ -33,6 +42,7 @@ const mapStateToProps = (state) => ({
   email: state.user.email,
   moeda: state.wallet.currencies,
   soma: state.wallet.soma,
+  lista: state.wallet.expenses,
 
 });
 
