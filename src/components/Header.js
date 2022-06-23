@@ -21,7 +21,7 @@ class Header extends React.Component {
   }
 
   render() {
-    const { email /* soma = 0 */ } = this.props;
+    const { email } = this.props;
     return (
       <header>
         <div data-testid="email-field">{email}</div>
@@ -44,7 +44,6 @@ const mapDispatchToProps = (dispatch) => ({
 const mapStateToProps = (state) => ({
   email: state.user.email,
   moeda: state.wallet.currencies,
-  soma: state.wallet.soma,
   lista: state.wallet.expenses,
 
 });
