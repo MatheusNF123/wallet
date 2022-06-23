@@ -35,15 +35,15 @@ class Tabela extends React.Component {
               <td>{elemento.description}</td>
               <td>{elemento.tag}</td>
               <td>{elemento.method}</td>
-              <td>{Number(elemento.value).toFixed(2) }</td>
+              <td>{parseFloat(elemento.value).toFixed(2) }</td>
               <td>{[elemento.exchangeRates[elemento.currency].name]}</td>
               <td>
-                {Number(elemento.exchangeRates[elemento
+                {parseFloat(elemento.exchangeRates[elemento
                   .currency].ask).toFixed(2)}
 
               </td>
               <td>
-                {(Number(elemento
+                {(parseFloat(elemento
                   .value * elemento
                   .exchangeRates[elemento.currency].ask)).toFixed(2)}
 
@@ -55,8 +55,8 @@ class Tabela extends React.Component {
                 <button
                   type="button"
                   data-testid="delete-btn"
-                  onClick={ () => this.deletaDaLista(elemento.id, Number(elemento
-                    .value).toFixed(2) * Number(elemento
+                  onClick={ () => this.deletaDaLista(elemento.id, parseFloat(elemento
+                    .value).toFixed(2) * parseFloat(elemento
                     .exchangeRates[elemento.currency].ask).toFixed(2)) }
                 >
                   Excluir

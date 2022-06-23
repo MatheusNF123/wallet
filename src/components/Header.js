@@ -15,7 +15,7 @@ class Header extends React.Component {
       <header>
         <div data-testid="email-field">{email}</div>
         <div data-testid="total-field">
-          {Number(soma).toFixed(2)}
+          {parseFloat(soma).toFixed(2)}
 
         </div>
 

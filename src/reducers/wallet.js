@@ -19,11 +19,11 @@ const walletReducer = (state = INITIAL_STATE, action) => {
   case EXPENSES:
     return { ...state,
       expenses: [...state.expenses, action.payload],
-      soma: Number(state.soma) + Number(action.soma) };
+      soma: parseFloat(state.soma) + parseFloat(action.soma) };
   case ATUALIZAR:
     return { ...state,
       expenses: action.payload,
-      soma: Number(state.soma) - Number(action.subtrai),
+      soma: parseFloat(state.soma) - parseFloat(action.subtrai),
     };
   default: return state;
   }
