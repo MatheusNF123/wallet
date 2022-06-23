@@ -11,7 +11,6 @@ class Header extends React.Component {
   }
 
   adicionaValor = () => {
-    // const dez = 10;
     const { lista } = this.props;
     return lista.reduce((acc, curr) => {
       const valorConvertido = curr.value * curr.exchangeRates[curr.currency].ask;
@@ -26,7 +25,6 @@ class Header extends React.Component {
       <header>
         <div data-testid="email-field">{email}</div>
         <div data-testid="total-field">
-          {/* {parseFloat(soma).toFixed(2)} */}
           {parseFloat(this.adicionaValor()).toFixed(2)}
 
         </div>

@@ -1,14 +1,22 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
-import { actionAtualizarLista } from '../actions';
+import { actionAtualizarLista, actionEditaLista } from '../actions';
 
 class Tabela extends React.Component {
-  deletaDaLista = (id, preco) => {
-    console.log(preco);
+  deletaDaLista = (id) => {
     const { lista, atualizarGastosELista } = this.props;
     const objetoDaLista = lista.filter((elemento) => elemento.id !== id);
-    atualizarGastosELista(objetoDaLista, preco);
+    atualizarGastosELista(objetoDaLista);
+  }
+
+  editarLista = (id) => {
+    const { /* lista, estadoForm  */ editarArrayLista } = this.props;
+    // const objetoDaLista = lista.filter((elemento) => elemento.id === id);
+    // const novoObjeto = { objetoDaLista, ...estadoForm };
+    // console.log(novoObjeto);
+    // console.log();
+    editarArrayLista(id);
   }
 
   render() {
@@ -51,13 +59,18 @@ class Tabela extends React.Component {
               <td>Real</td>
               <td>
 
-                <button type="button">Editar</button>
+                <button
+                  type="button"
+                  data-testid="edit-btn"
+                  onClick={ () => this.editarLista(elemento.id) }
+                >
+                  Editar
+
+                </button>
                 <button
                   type="button"
                   data-testid="delete-btn"
-                  onClick={ () => this.deletaDaLista(elemento.id, parseFloat(elemento
-                    .value).toFixed(2) * parseFloat(elemento
-                    .exchangeRates[elemento.currency].ask).toFixed(2)) }
+                  onClick={ () => this.deletaDaLista(elemento.id) }
                 >
                   Excluir
 
@@ -76,6 +89,7 @@ class Tabela extends React.Component {
 const mapDispatchToProps = (dispatch) => ({
   atualizarGastosELista: (param1,
     param2) => dispatch(actionAtualizarLista(param1, param2)),
+  editarArrayLista: (list) => dispatch(actionEditaLista(list)),
 });
 
 const mapStateToProps = (state) => ({

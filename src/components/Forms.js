@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
-import { actionExpensesThunk } from '../actions';
+import { actionExpensesThunk, actionAtualizarListaGlobal } from '../actions';
 
 class Forms extends React.Component {
   state = {
@@ -11,7 +11,7 @@ class Forms extends React.Component {
     currency: 'USD',
     method: '',
     tag: '',
-    /* somas: 0, */
+
   }
 
   onInputChange = ({ target }) => {
@@ -23,12 +23,9 @@ class Forms extends React.Component {
     const { id, currency, value, /* somas, */ description, method, tag } = this.state;
     // this.setState((a) => ({ id: a.id + 1 }));
     this.setState({ id: id + 1 });
-    const { enviarGastos /* objetoC  */ } = this.props;
-    // const soma = Number(value) * Number(objetoC[currency].ask);
-    // console.log(soma);
-    enviarGastos({ id, value, description, currency, method, tag },
-      currency/* .toFixed(2) */);
-    this.setState({ /* somas: soma */
+    const { enviarGastos } = this.props;
+    enviarGastos({ id, value, description, currency, method, tag });
+    this.setState({
       value: '',
       description: '',
       currency: '',
@@ -36,8 +33,21 @@ class Forms extends React.Component {
       tag: '' });
   }
 
+  pegarEstadoDoForm = () => {
+    const { currency, value, description, method, tag } = this.state;
+    const { idE, minhaLista, atualizarListaEditada } = this.props;
+    const listaNova = minhaLista.map((elemento) => {
+      if (elemento.id === idE) {
+        elemento = { ...elemento, currency, value, description, method, tag };
+      }
+      return elemento;
+    });
+    // console.log(listaNova);
+    atualizarListaEditada(listaNova);
+  }
+
   render() {
-    const { moeda } = this.props;
+    const { moeda, editar } = this.props;
     const { value, description, currency, method,
       tag } = this.state;
     return (
@@ -113,20 +123,31 @@ class Forms extends React.Component {
             <option value="Saúde">Saúde</option>
           </select>
         </label>
-        <button type="button" onClick={ this.addDespesa }>Adicionar despesa</button>
+        {!editar
+          ? (<button type="button" onClick={ this.addDespesa }>Adicionar despesa</button>)
+          : (
+            <button
+              type="button"
+              onClick={ this.pegarEstadoDoForm }
+            >
+              Editar Despesas
+            </button>)}
+
       </form>
     );
   }
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  enviarGastos: (param, param2) => dispatch(actionExpensesThunk(param, param2)),
+  enviarGastos: (param) => dispatch(actionExpensesThunk(param)),
+  atualizarListaEditada: (lista) => dispatch(actionAtualizarListaGlobal(lista)),
 });
 
 const mapStateToProps = (state) => ({
   moeda: state.wallet.currencies,
-  objetoC: state.wallet.objetoCompleto,
   minhaLista: state.wallet.expenses,
+  editar: state.wallet.editar,
+  idE: state.wallet.id,
 });
 
 Forms.propTypes = {

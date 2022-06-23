@@ -1,5 +1,6 @@
 // Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
-import { CURRENCIES, EXPENSES, ATUALIZAR } from '../actions';
+import { CURRENCIES, EXPENSES, ATUALIZAR,
+  EDITALISTA, NOVALISTAEIDATA } from '../actions';
 
 const INITIAL_STATE = {
   currencies: [], // array de string
@@ -7,7 +8,8 @@ const INITIAL_STATE = {
   editor: false, // valor booleano que indica de uma despesa está sendo editada
   idToEdit: 0, // valor numérico que armazena o id da despesa que esta sendo editada
   objetoCompleto: {},
-  soma: 0,
+  editar: false,
+  id: null,
 };
 
 const walletReducer = (state = INITIAL_STATE, action) => {
@@ -19,12 +21,16 @@ const walletReducer = (state = INITIAL_STATE, action) => {
   case EXPENSES:
     return { ...state,
       expenses: [...state.expenses, action.payload],
-      soma: parseFloat(state.soma) + parseFloat(action.soma) };
+    };
   case ATUALIZAR:
     return { ...state,
       expenses: action.payload,
-      soma: parseFloat(state.soma) - parseFloat(action.subtrai),
+
     };
+  case EDITALISTA:
+    return { ...state, editar: true, id: action.id };
+  case NOVALISTAEIDATA:
+    return { ...state, expenses: action.payload };
   default: return state;
   }
 };

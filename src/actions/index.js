@@ -3,17 +3,21 @@ export const LOGIN = 'LOGIN';
 export const CURRENCIES = 'actionCurrencies';
 export const EXPENSES = 'EXPENSES';
 export const ATUALIZAR = 'ATUALIZAR';
+export const EDITALISTA = 'EDITALISTA';
+export const NOVALISTAEIDATA = 'NOVALISTAEIDATA';
 
 export const actionLogin = (email) => ({ type: LOGIN, payload: email });
 
 export const actionCurrencies = (moeda, obj) => (
   { type: CURRENCIES, payload: moeda, obj });
 
-export const actionExpenses = (desp, soma) => ({ type: EXPENSES, payload: desp, soma });
+export const actionExpenses = (desp) => ({ type: EXPENSES, payload: desp });
 
-export const actionAtualizarLista = (lista, subtrai) => ({ type: ATUALIZAR,
+export const actionAtualizarLista = (lista) => ({ type: ATUALIZAR,
   payload: lista,
-  subtrai });
+});
+
+export const actionEditaLista = (id) => ({ type: EDITALISTA, id });
 
 export const actionCurrencieThunk = () => async (dispatch) => {
   try {
@@ -26,20 +30,16 @@ export const actionCurrencieThunk = () => async (dispatch) => {
   }
 };
 
-export const actionExpensesThunk = (param, somaTudo) => async (dispatch) => {
+export const actionExpensesThunk = (param) => async (dispatch) => {
   const obj = { ...param };
   try {
     const response = await fetch('https://economia.awesomeapi.com.br/json/all');
     const json = await response.json();
-    // console.log(json);
-    console.log(somaTudo);
-    // const valorPraSOmar = param.value * obj[param.currency].ask;
-    // console.log(json[somaTudo].ask );
-    // console.log(param.value * json[somaTudo].ask);
-    const valorPraSOmar = (param.value * json[somaTudo].ask);
-    // const todasMoedas = Object.values(json).filter((elemento) => elemento);
-    dispatch(actionExpenses({ ...obj, exchangeRates: json }, valorPraSOmar));
+    dispatch(actionExpenses({ ...obj, exchangeRates: json }));
   } catch (e) {
     console.log(e);
   }
 };
+
+export const actionAtualizarListaGlobal = (listaEditada) => (
+  { type: NOVALISTAEIDATA, payload: listaEditada });
