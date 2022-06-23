@@ -1,5 +1,5 @@
 // Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
-import { CURRENCIES, EXPENSES } from '../actions';
+import { CURRENCIES, EXPENSES, ATUALIZAR } from '../actions';
 
 const INITIAL_STATE = {
   currencies: [], // array de string
@@ -17,7 +17,14 @@ const walletReducer = (state = INITIAL_STATE, action) => {
       currencies: action.payload,
       objetoCompleto: action.obj };
   case EXPENSES:
-    return { ...state, expenses: [...state.expenses, action.payload], soma: action.soma };
+    return { ...state,
+      expenses: [...state.expenses, action.payload],
+      soma: Number(state.soma) + Number(action.soma) };
+  case ATUALIZAR:
+    return { ...state,
+      expenses: action.payload,
+      soma: Number(state.soma) - Number(action.subtrai),
+    };
   default: return state;
   }
 };

@@ -8,10 +8,10 @@ class Forms extends React.Component {
     id: 0,
     value: 0,
     description: '',
-    currency: '',
+    currency: 'USD',
     method: '',
     tag: '',
-    somas: 0,
+    /* somas: 0, */
   }
 
   onInputChange = ({ target }) => {
@@ -20,13 +20,15 @@ class Forms extends React.Component {
   }
 
   addDespesa = () => {
-    const { id, currency, value, somas, description, method, tag } = this.state;
+    const { id, currency, value, /* somas, */ description, method, tag } = this.state;
     // this.setState((a) => ({ id: a.id + 1 }));
     this.setState({ id: id + 1 });
-    const { enviarGastos, objetoC } = this.props;
-    const soma = somas + objetoC[currency].ask * value;
-    enviarGastos({ id, value, description, currency, method, tag }, soma.toFixed(2));
-    this.setState({ somas: soma,
+    const { enviarGastos /* objetoC  */ } = this.props;
+    // const soma = Number(value) * Number(objetoC[currency].ask);
+    // console.log(soma);
+    enviarGastos({ id, value, description, currency, method, tag },
+      currency/* .toFixed(2) */);
+    this.setState({ /* somas: soma */
       value: '',
       description: '',
       currency: '',
@@ -124,6 +126,7 @@ const mapDispatchToProps = (dispatch) => ({
 const mapStateToProps = (state) => ({
   moeda: state.wallet.currencies,
   objetoC: state.wallet.objetoCompleto,
+  minhaLista: state.wallet.expenses,
 });
 
 Forms.propTypes = {

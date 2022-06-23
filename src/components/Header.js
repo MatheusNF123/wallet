@@ -15,7 +15,7 @@ class Header extends React.Component {
       <header>
         <div data-testid="email-field">{email}</div>
         <div data-testid="total-field">
-          {soma}
+          {Number(soma).toFixed(2)}
 
         </div>
 
@@ -33,6 +33,7 @@ const mapStateToProps = (state) => ({
   email: state.user.email,
   moeda: state.wallet.currencies,
   soma: state.wallet.soma,
+
 });
 
 Header.propTypes = {
