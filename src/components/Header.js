@@ -11,20 +11,23 @@ class Header extends React.Component {
   }
 
   adicionaValor = () => {
-    const dez = 10;
+    // const dez = 10;
     const { lista } = this.props;
-    console.log(lista.length, 'minhaLista');
-    return dez;
+    return lista.reduce((acc, curr) => {
+      const valorConvertido = curr.value * curr.exchangeRates[curr.currency].ask;
+      acc += valorConvertido;
+      return acc;
+    }, 0);
   }
 
   render() {
-    const { email, soma = 0 } = this.props;
+    const { email /* soma = 0 */ } = this.props;
     return (
       <header>
         <div data-testid="email-field">{email}</div>
         <div data-testid="total-field">
           {/* {parseFloat(soma).toFixed(2)} */}
-          {this.adicionaValor()}
+          {parseFloat(this.adicionaValor()).toFixed(2)}
 
         </div>
 
