@@ -30,7 +30,7 @@ const walletReducer = (state = INITIAL_STATE, action) => {
   case EDITALISTA:
     return { ...state, editar: true, id: action.id };
   case NOVALISTAEIDATA:
-    return { ...state, expenses: action.payload };
+    return { ...state, expenses: action.payload, editar: false };
   default: return state;
   }
 };

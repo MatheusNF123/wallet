@@ -11,12 +11,16 @@ class Tabela extends React.Component {
   }
 
   editarLista = (id) => {
-    const { /* lista, estadoForm  */ editarArrayLista } = this.props;
-    // const objetoDaLista = lista.filter((elemento) => elemento.id === id);
+    const { lista, /* estadoForm */ editarArrayLista,
+      passarParaEstado } = this.props;
+    const objetoDaLista = lista.find((elemento) => elemento.id === id);
+    const novoObj = { ...objetoDaLista };
+    delete novoObj.exchangeRates;
     // const novoObjeto = { objetoDaLista, ...estadoForm };
     // console.log(novoObjeto);
     // console.log();
     editarArrayLista(id);
+    passarParaEstado(novoObj);
   }
 
   render() {
@@ -89,7 +93,7 @@ class Tabela extends React.Component {
 const mapDispatchToProps = (dispatch) => ({
   atualizarGastosELista: (param1,
     param2) => dispatch(actionAtualizarLista(param1, param2)),
-  editarArrayLista: (list) => dispatch(actionEditaLista(list)),
+  editarArrayLista: (id, obj) => dispatch(actionEditaLista(id, obj)),
 });
 
 const mapStateToProps = (state) => ({
