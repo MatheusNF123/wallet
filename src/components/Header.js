@@ -22,14 +22,40 @@ class Header extends React.Component {
   render() {
     const { email } = this.props;
     return (
-      <header>
-        <div data-testid="email-field">{email}</div>
-        <div data-testid="total-field">
-          {parseFloat(this.adicionaValor()).toFixed(2)}
+      <header className="containerHeader">
+        <div className="contentHeader">
+          <div className="contentLogo">
+            <div className="imgHeader">
+              <img src="https://cdn-icons-png.flaticon.com/512/214/214362.png" alt="imagemCarteira" />
+            </div>
+            <div className="nomeHeader">MINHA CARTEIRA</div>
+          </div>
 
+          <div className="contentEmail">
+            <span className="material-symbols-outlined user">
+              account_circle
+            </span>
+            <div
+              data-testid="email-field"
+              className="email"
+            >
+              {email || 'exemplo@exemplo.com'}
+
+            </div>
+            <span className="material-symbols-outlined coin">
+              database
+            </span>
+            <div className="rs">R$:</div>
+
+            <div data-testid="total-field" className="valorHeader">
+              {parseFloat(this.adicionaValor()).toFixed(2)}
+
+            </div>
+
+            <div data-testid="header-currency-field" className="brl">BRL</div>
+          </div>
         </div>
 
-        <div data-testid="header-currency-field">BRL</div>
       </header>
     );
   }

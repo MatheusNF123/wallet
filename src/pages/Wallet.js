@@ -11,11 +11,10 @@ class Wallet extends React.Component {
   state = {
     id: 0,
     value: 0,
-    description: '',
+    description: 'Nenhuma Descrição',
     currency: 'USD',
-    method: '',
-    tag: '',
-    alo: false,
+    method: 'Dinheiro',
+    tag: 'Alimentação',
 
   }
 

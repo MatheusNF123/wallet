@@ -36,39 +36,49 @@ class Login extends React.Component {
   render() {
     const { email, senha, desativar } = this.state;
     return (
-      <div>
-        <label htmlFor="email">
-          Email:
-          <input
-            type="email"
-            name="email"
-            id="email"
-            value={ email }
-            placeholder="email@eaxample.com"
-            onChange={ this.onInputChange }
-            data-testid="email-input"
-          />
-        </label>
-        <label htmlFor="senha">
-          Senha:
-          <input
-            type="password"
-            name="senha"
-            id="senha"
-            value={ senha }
-            onChange={ this.onInputChange }
-            data-testid="password-input"
-          />
-        </label>
-        <button
-          type="button"
-          disabled={ desativar }
-          onClick={ this.fazerLogin }
-        >
-          Entrar
+      <section className="container">
+        <article className="content">
+          <div className="imgLogin">
+            <img
+              src="https://cdn-icons-png.flaticon.com/512/214/214362.png"
+              alt="imagemCarteira"
+            />
+          </div>
+          <label htmlFor="email">
 
-        </button>
-      </div>
+            <input
+              type="email"
+              name="email"
+              id="email"
+              value={ email }
+              placeholder="Email: email@eaxample.com"
+              onChange={ this.onInputChange }
+              data-testid="email-input"
+            />
+          </label>
+          <label htmlFor="senha">
+
+            <input
+              type="password"
+              name="senha"
+              id="senha"
+              value={ senha }
+              onChange={ this.onInputChange }
+              data-testid="password-input"
+              placeholder="Senha:"
+            />
+
+          </label>
+          <button
+            className={ !desativar ? 'backGroundTrue' : 'backGroundFalse' }
+            type="button"
+            disabled={ desativar }
+            onClick={ this.fazerLogin }
+          >
+            Entrar
+          </button>
+        </article>
+      </section>
     );
   }
 }

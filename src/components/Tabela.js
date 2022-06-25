@@ -16,9 +16,6 @@ class Tabela extends React.Component {
     const objetoDaLista = lista.find((elemento) => elemento.id === id);
     const novoObj = { ...objetoDaLista };
     delete novoObj.exchangeRates;
-    // const novoObjeto = { objetoDaLista, ...estadoForm };
-    // console.log(novoObjeto);
-    // console.log();
     editarArrayLista(id);
     passarParaEstado(novoObj);
   }
@@ -28,8 +25,7 @@ class Tabela extends React.Component {
     return (
       <table>
         <thead>
-          <tr>
-            <th>Descrição</th>
+          <tr className="tr">
             <th>Tag</th>
             <th>Método de pagamento</th>
             <th>Valor</th>
@@ -37,6 +33,7 @@ class Tabela extends React.Component {
             <th>Câmbio utilizado</th>
             <th>Valor convertido</th>
             <th>Moeda de conversão</th>
+            <th>Descrição</th>
             <th>Editar/Excluir</th>
           </tr>
         </thead>
@@ -67,16 +64,22 @@ class Tabela extends React.Component {
                   type="button"
                   data-testid="edit-btn"
                   onClick={ () => this.editarLista(elemento.id) }
+                  className="botaoEditar"
                 >
-                  Editar
+                  <span className="material-symbols-outlined">
+                    border_color
+                  </span>
 
                 </button>
                 <button
                   type="button"
                   data-testid="delete-btn"
                   onClick={ () => this.deletaDaLista(elemento.id) }
+                  className="botaoDelete"
                 >
-                  Excluir
+                  <span className="material-symbols-outlined">
+                    cancel
+                  </span>
 
                 </button>
 
@@ -94,6 +97,7 @@ const mapDispatchToProps = (dispatch) => ({
   atualizarGastosELista: (param1,
     param2) => dispatch(actionAtualizarLista(param1, param2)),
   editarArrayLista: (id, obj) => dispatch(actionEditaLista(id, obj)),
+
 });
 
 const mapStateToProps = (state) => ({

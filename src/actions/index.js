@@ -5,6 +5,7 @@ export const EXPENSES = 'EXPENSES';
 export const ATUALIZAR = 'ATUALIZAR';
 export const EDITALISTA = 'EDITALISTA';
 export const NOVALISTAEIDATA = 'NOVALISTAEIDATA';
+export const VOLTARBOTAO = 'VOLTARBOTAO';
 
 export const actionLogin = (email) => ({ type: LOGIN, payload: email });
 
