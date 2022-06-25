@@ -262,7 +262,7 @@ table tbody tr:nth-child(even) {
   font-weight: 500;
 }
 table tbody tr:nth-child(odd) {
-  background: rgb(94, 94, 161);
+  background: rgb(68, 68, 153);
   color: rgb(255, 255, 255);
   text-align: center;
   height: 20px;

@@ -65,24 +65,16 @@ class Wallet extends React.Component {
     return (
       <>
         <Header />
-        {editar
-          ? (
-            <Forms
-              { ...this.state }
-              // moeda={ moeda }
-              editar={ editar }
-              onInputChange={ this.onInputChange }
-              pegarEstadoDoForm={ this.pegarEstadoDoForm }
-            />)
-          : (
-            <Forms
-              { ...this.state }
-              // moeda={ moeda }
-              editar={ editar }
-              addDespesa={ this.addDespesa }
-              onInputChange={ this.onInputChange }
-              // pegarEstadoDoForm={this.pegarEstadoDoForm}
-            />)}
+
+        <Forms
+          { ...this.state }
+          // moeda={ moeda }
+          editar={ editar }
+          onInputChange={ this.onInputChange }
+          pegarEstadoDoForm={ this.pegarEstadoDoForm }
+          addDespesa={ this.addDespesa }
+        />
+
         {/* <Forms /> */}
         <Tabela passarParaEstado={ this.passarParaEstado } />
       </>

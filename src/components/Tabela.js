@@ -26,6 +26,7 @@ class Tabela extends React.Component {
       <table>
         <thead>
           <tr className="tr">
+            <th>Descrição</th>
             <th>Tag</th>
             <th>Método de pagamento</th>
             <th>Valor</th>
@@ -33,7 +34,6 @@ class Tabela extends React.Component {
             <th>Câmbio utilizado</th>
             <th>Valor convertido</th>
             <th>Moeda de conversão</th>
-            <th>Descrição</th>
             <th>Editar/Excluir</th>
           </tr>
         </thead>
