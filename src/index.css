@@ -20,16 +20,27 @@ code {
   width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  /* justify-content: center; */
+  /* justify-content: space-evenly; */
   align-items: center;
   /* background-color: #09338da8; */
 }
+
+.tituloLogin{
+  font-size: 4em;
+  font-family: 'Fredoka One', cursive;
+  color: white;
+  text-shadow: 3px 3px 5px black;
+  margin-top: 100px;
+}
+
 
 
 .content{
   background-color: rgba(255, 255, 255, 0.781);
   padding: 20px;
-  width: 30%;
+  width: 500px;
+  /* min-width: 25%; */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -44,16 +55,42 @@ code {
   padding: 15px;
   border-radius: 10px;
   border: none;
-  margin-bottom: 10px;
+  margin-top: 10px;
   box-shadow: 0px 2px 10px rgb(122, 122, 122);
 }
 
-.content button{
-  padding: 10px 80px;
-  margin: 20px;
+.spanAlertaEmail{
+  color: rgb(190, 0, 0);
+  font-size: 11px;
+  display: flex;
+  /* justify-content: flex-start; */
+  width: 25em;
+  /* text-align: initial; */
+  /* display: block; */
+  
+  margin-top: 5px;
+}
+.spanAlertaSenha{
+  color: rgb(190, 0, 0);
+  font-size: 11px;
+  display: flex;
+  /* justify-content: flex-start; */
+  width: 25em;
+  /* text-align: initial; */
+  /* display: inline-block; */
+  margin-top: 5px;
+}
+
+.content .cadastro{
+  width: 50%;
+  padding: 10px 0px;
+  /* margin: 20px; */
   border-radius: 5px;
   border: none;
   color: white;
+  background-color: #54a33c;
+  margin-bottom: 20px;
+  /* color: white; */
   /* background-color: #1d243346;; */
 }
 
@@ -64,10 +101,24 @@ code {
 }
 
 .backGroundTrue{
+  /* padding: 10px 80px; */
+  width: 50%;
+  padding: 10px 0px;
+  margin: 20px;
+  border-radius: 5px;
+  border: none;
+  color: white;
   background-color: #5689f8;
 }
 
 .backGroundFalse{
+  /* padding: 10px 80px; */
+  width: 50%;
+  margin: 20px;
+  padding: 10px 0px;
+  border-radius: 5px;
+  border: none;
+  color: white;
   background-color: #3a558f79;
 }
 
@@ -94,6 +145,10 @@ code {
   justify-content: center;
   align-items: center;
   /* padding: 20px; */
+}
+
+.containerHeader a{
+text-decoration: none;
 }
 
 .contentHeader{
@@ -274,18 +329,135 @@ body{
 }
 
 .botaoDelete{
-  background-color: rgb(206, 29, 29);
+  background-color: rgba(255, 255, 255, 0.658);
   font-size: 1px;
   /* border: 2px solid black; */
   margin-left: 5px;
-  color: white;
+  color: rgb(224, 0, 0);
   /* width: 30px;
   height: 30px; */
+  border-radius: 10px;
+ 
 }
 
 .botaoEditar{
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0.658);
   /* border: 2px solid black; */
   font-size: 5px;
+  /* border: none; */
+  border-radius: 10px;
+  /* color: white; */
 }
 
+/* Cadastro */
+
+.containerCadastro{
+  width: 100%;
+  height: 100vh;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color:rgb(76, 76, 129);
+}
+
+.formCadastro{
+  /* width: 50%; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.781);
+  border-radius: 10px;
+  /* height: 50%; */
+  box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.548);
+  padding: 30px;
+}
+
+.cadastrar{
+  display: flex;
+  flex-direction: column;
+  /* background-color: black; */
+  align-items: center;
+  width: 100%;
+}
+.cadastrar input{
+  display: flex;
+  width: 100%;
+  margin-right: 10px;
+  margin-top: 30px;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+}
+
+.divinputEmail, .inputSenhaEConfirma{
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+
+
+.cadastrar input:focus{
+  border: 0 none;
+  outline: 0;
+}
+
+
+.tituloCadastro{
+  color: white;
+  font-size: 30px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  text-shadow: 2px 2px 5px black;
+}
+
+.labelEmailCadastro{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 94%;
+  align-items: center;
+
+}
+
+.emailCadastro{
+  width: 100% ;
+  /* background-color: black; */
+}
+
+.spanEmailExistente{
+  font-size: 12px;
+  align-self: flex-start;
+  /* margin-left: 45px; */
+  margin-top: 4px;
+  color: rgb(146, 2, 2);
+}
+
+.buttonLink{
+  display: flex;
+  justify-content: space-around;
+  width: 80%;
+  margin: 50px 30px 0px 30px;
+  align-items: center;
+}
+
+.buttonLink button{
+ width: 40%;
+ padding: 12px 0px;
+ border-radius: 5px;
+ border: none;
+ background-color: rgb(72, 112, 221);
+ color: white;
+ font-weight: bold;
+}
+.buttonLink button:hover{
+
+ background-color: rgb(50, 92, 206);
+
+}
+
+.buttonLink a{
+  text-align: center;
+  width: 40%;
+}

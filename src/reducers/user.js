@@ -1,14 +1,18 @@
 // Esse reducer será responsável por tratar as informações da pessoa usuária
-import { LOGIN } from '../actions';
+import { LOGIN, CADASTRO } from '../actions';
 
 const INITIAL_STATE = {
-  email: '',
+  cadastro: localStorage
+    .getItem('user') ? JSON.parse(localStorage.getItem('user')) : [],
+  usuario: {},
 };
 
 const userReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
   case LOGIN:
-    return { ...state, email: action.payload };
+    return { ...state, usuario: action.payload };
+  case CADASTRO:
+    return { ...state, cadastro: [...state.cadastro, action.payload] };
   default: return state;
   }
 };

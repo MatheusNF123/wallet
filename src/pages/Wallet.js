@@ -1,11 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
+import { nanoid } from 'nanoid';
 import Header from '../components/Header';
 import Forms from '../components/Forms';
 import Tabela from '../components/Tabela';
 import { actionExpensesThunk,
-  actionAtualizarListaGlobal } from '../actions';
+  actionAtualizarListaGlobal, actionAtualizarLista } from '../actions';
 
 class Wallet extends React.Component {
   state = {
@@ -24,17 +25,18 @@ class Wallet extends React.Component {
   }
 
   addDespesa = () => {
-    const { id, currency, value, /* somas, */ description, method, tag } = this.state;
+    const { currency, value, /* somas, */ description, method, tag } = this.state;
     // this.setState((a) => ({ id: a.id + 1 }));
-    this.setState({ id: id + 1 });
-    const { enviarGastos } = this.props;
-    enviarGastos({ id, value, description, currency, method, tag });
+    const id = nanoid();
+    // console.log(algumacoisa);
+    // this.setState({ id: id + 1 });
+    const { enviarGastos, usuario: { email }, despesas } = this.props;
+    enviarGastos({ id, value, description, currency, method, tag, email }, despesas);
+
     this.setState({
       value: '',
       description: '',
-      currency: '',
-      method: '',
-      tag: '' });
+    });
   }
 
   pegarEstadoDoForm = () => {
@@ -51,9 +53,7 @@ class Wallet extends React.Component {
     this.setState({
       value: '',
       description: '',
-      currency: '',
-      method: '',
-      tag: '' });
+    });
   }
 
   passarParaEstado = (param) => {
@@ -83,8 +83,9 @@ class Wallet extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  enviarGastos: (param) => dispatch(actionExpensesThunk(param)),
+  enviarGastos: (param, gastos) => dispatch(actionExpensesThunk(param, gastos)),
   atualizarListaEditada: (lista) => dispatch(actionAtualizarListaGlobal(lista)),
+  atualizarExpense: (param) => dispatch(actionAtualizarLista(param)),
 
 });
 
@@ -94,6 +95,8 @@ const mapStateToProps = (state) => ({
   editar: state.wallet.editar,
   idE: state.wallet.id,
   obj: state.wallet.obj,
+  usuario: state.user.usuario,
+  despesas: state.wallet.expenses,
 });
 
 Wallet.propTypes = {

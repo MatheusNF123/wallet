@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { actionCurrencieThunk } from '../actions';
 
 class Header extends React.Component {
@@ -11,16 +12,19 @@ class Header extends React.Component {
   }
 
   adicionaValor = () => {
-    const { lista } = this.props;
+    const { lista, usuario: { email } } = this.props;
     return lista.reduce((acc, curr) => {
-      const valorConvertido = curr.value * curr.exchangeRates[curr.currency].ask;
-      acc += valorConvertido;
+      if (curr.email === email) {
+        const valorConvertido = curr.value * curr.exchangeRates[curr.currency].ask;
+        acc += valorConvertido;
+        return acc;
+      }
       return acc;
     }, 0);
   }
 
   render() {
-    const { email } = this.props;
+    const { usuario } = this.props;
     return (
       <header className="containerHeader">
         <div className="contentHeader">
@@ -28,7 +32,10 @@ class Header extends React.Component {
             <div className="imgHeader">
               <img src="https://cdn-icons-png.flaticon.com/512/214/214362.png" alt="imagemCarteira" />
             </div>
-            <div className="nomeHeader">MINHA CARTEIRA</div>
+            <Link to="/">
+              <div className="nomeHeader">MyWallet</div>
+            </Link>
+
           </div>
 
           <div className="contentEmail">
@@ -39,7 +46,7 @@ class Header extends React.Component {
               data-testid="email-field"
               className="email"
             >
-              {email || 'exemplo@exemplo.com'}
+              {usuario.nome || 'usuario'}
 
             </div>
             <span className="material-symbols-outlined coin">
@@ -66,14 +73,19 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const mapStateToProps = (state) => ({
-  email: state.user.email,
+  usuario: state.user.usuario,
   moeda: state.wallet.currencies,
   lista: state.wallet.expenses,
 
 });
 
 Header.propTypes = {
-  email: propTypes.string,
+  usuario: propTypes.shape({
+    nome: propTypes.string,
+    sobreNome: propTypes.string,
+    email: propTypes.string,
+    senha: propTypes.string,
+  }),
 }.isRequired;
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);

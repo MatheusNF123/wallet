@@ -7,6 +7,7 @@ class Tabela extends React.Component {
   deletaDaLista = (id) => {
     const { lista, atualizarGastosELista } = this.props;
     const objetoDaLista = lista.filter((elemento) => elemento.id !== id);
+    // localStorage.setItem('despesas', JSON.stringify(objetoDaLista));
     atualizarGastosELista(objetoDaLista);
   }
 
@@ -21,7 +22,7 @@ class Tabela extends React.Component {
   }
 
   render() {
-    const { lista } = this.props;
+    const { lista, usuario: { email } } = this.props;
     return (
       <table>
         <thead>
@@ -38,55 +39,56 @@ class Tabela extends React.Component {
           </tr>
         </thead>
         <tbody>
-          {lista.length > 0 && lista.map((elemento, index) => (
-            <tr key={ `${elemento.description}${index} ` }>
+          {lista.length > 0 && lista
+            .filter((user) => user.email === email).map((elemento, index) => (
+              <tr key={ `${elemento.description}${index} ` }>
 
-              <td>{elemento.description}</td>
-              <td>{elemento.tag}</td>
-              <td>{elemento.method}</td>
-              <td>{parseFloat(elemento.value).toFixed(2) }</td>
-              <td>{[elemento.exchangeRates[elemento.currency].name]}</td>
-              <td>
-                {parseFloat(elemento.exchangeRates[elemento
-                  .currency].ask).toFixed(2)}
+                <td>{elemento.description}</td>
+                <td>{elemento.tag}</td>
+                <td>{elemento.method}</td>
+                <td>{parseFloat(elemento.value).toFixed(2) }</td>
+                <td>{[elemento.exchangeRates[elemento.currency].name]}</td>
+                <td>
+                  {parseFloat(elemento.exchangeRates[elemento
+                    .currency].ask).toFixed(2)}
 
-              </td>
-              <td>
-                {(parseFloat(elemento
-                  .value * elemento
-                  .exchangeRates[elemento.currency].ask)).toFixed(2)}
+                </td>
+                <td>
+                  {(parseFloat(elemento
+                    .value * elemento
+                    .exchangeRates[elemento.currency].ask)).toFixed(2)}
 
-              </td>
-              <td>Real</td>
-              <td>
+                </td>
+                <td>Real</td>
+                <td>
 
-                <button
-                  type="button"
-                  data-testid="edit-btn"
-                  onClick={ () => this.editarLista(elemento.id) }
-                  className="botaoEditar"
-                >
-                  <span className="material-symbols-outlined">
-                    border_color
-                  </span>
+                  <button
+                    type="button"
+                    data-testid="edit-btn"
+                    onClick={ () => this.editarLista(elemento.id) }
+                    className="botaoEditar"
+                  >
+                    <span className="material-symbols-outlined">
+                      border_color
+                    </span>
 
-                </button>
-                <button
-                  type="button"
-                  data-testid="delete-btn"
-                  onClick={ () => this.deletaDaLista(elemento.id) }
-                  className="botaoDelete"
-                >
-                  <span className="material-symbols-outlined">
-                    cancel
-                  </span>
+                  </button>
+                  <button
+                    type="button"
+                    data-testid="delete-btn"
+                    onClick={ () => this.deletaDaLista(elemento.id) }
+                    className="botaoDelete"
+                  >
+                    <span className="material-symbols-outlined">
+                      cancel
+                    </span>
 
-                </button>
+                  </button>
 
-              </td>
+                </td>
 
-            </tr>
-          ))}
+              </tr>
+            ))}
         </tbody>
       </table>
     );
@@ -102,6 +104,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 const mapStateToProps = (state) => ({
   lista: state.wallet.expenses,
+  usuario: state.user.usuario,
 });
 
 Tabela.propTypes = {

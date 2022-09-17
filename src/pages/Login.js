@@ -8,6 +8,8 @@ class Login extends React.Component {
     email: '',
     senha: '',
     desativar: true,
+    validaSenha: false,
+    validaEmail: false,
   }
 
   onInputChange = ({ target }) => {
@@ -18,8 +20,9 @@ class Login extends React.Component {
   verificaInput = () => {
     const mailformat = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
     const seis = 6;
+    const tres = 3;
     const { email, senha } = this.state;
-    if (email.length >= seis && email.match(mailformat) && senha.length >= seis) {
+    if (email.length >= seis && email.match(mailformat) && senha.length >= tres) {
       this.setState({ desativar: false });
     } else {
       this.setState({ desativar: true });
@@ -27,16 +30,33 @@ class Login extends React.Component {
   }
 
   fazerLogin = () => {
-    const { email } = this.state;
-    const { saveLogin, history } = this.props;
-    saveLogin(email);
-    history.push('/carteira');
+    const { email, senha } = this.state;
+    const { saveLogin, usuario, history } = this.props;
+    const logarUsuario = usuario.find((elemento) => elemento.email === email);
+    if (logarUsuario) {
+      this.setState({ validaEmail: false });
+      if (logarUsuario.senha === senha) {
+        saveLogin(logarUsuario);
+        this.setState({ validaSenha: false });
+        history.push('/carteira');
+      } else {
+        this.setState({ validaSenha: true, validaEmail: false });
+      }
+    } else {
+      this.setState({ validaEmail: true, validaSenha: false });
+    }
+  }
+
+  cadastrar = () => {
+    const { history } = this.props;
+    history.push('/cadastrar');
   }
 
   render() {
-    const { email, senha, desativar } = this.state;
+    const { email, senha, desativar, validaSenha, validaEmail } = this.state;
     return (
       <section className="container">
+        <h1 className="tituloLogin">MyWallet</h1>
         <article className="content">
           <div className="imgLogin">
             <img
@@ -56,6 +76,8 @@ class Login extends React.Component {
               data-testid="email-input"
             />
           </label>
+          {validaEmail
+         && <div className="spanAlertaEmail">não foi possivel encontrar sua conta</div>}
           <label htmlFor="senha">
 
             <input
@@ -69,6 +91,7 @@ class Login extends React.Component {
             />
 
           </label>
+          {validaSenha && <div className="spanAlertaSenha">senha incorreta</div>}
           <button
             className={ !desativar ? 'backGroundTrue' : 'backGroundFalse' }
             type="button"
@@ -77,11 +100,22 @@ class Login extends React.Component {
           >
             Entrar
           </button>
+          <button
+            className="cadastro"
+            type="button"
+            onClick={ this.cadastrar }
+          >
+            Cadastrar
+          </button>
         </article>
       </section>
     );
   }
 }
+
+const mapStateToProps = (state) => ({
+  usuario: state.user.cadastro,
+});
 
 const mapDispatchToProps = (dispatch) => ({
   saveLogin: (email) => dispatch(actionLogin(email)),
@@ -92,6 +126,7 @@ Login.propTypes = {
   history: propTypes.shape({
     push: propTypes.func,
   }).isRequired,
+  usuario: propTypes.arrayOf(Object).isRequired,
 };
 
-export default connect(null, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
